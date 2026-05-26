@@ -9,6 +9,7 @@
     "frontend"
   ],
   "scripts": {
+    "build": "npm --prefix frontend run build",
     "dev:backend": "npm --workspace backend run dev",
     "start:backend": "npm --workspace backend start",
     "seed": "npm --workspace backend run seed"
