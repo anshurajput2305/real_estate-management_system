@@ -4,11 +4,14 @@ dotenv.config();
 
 const required = ['MONGODB_URI', 'JWT_ACCESS_SECRET', 'JWT_REFRESH_SECRET', 'JWT_RESET_SECRET', 'JWT_VERIFY_SECRET'];
 
-if (process.env.NODE_ENV === 'production') {
-  for (const key of required) {
-    if (!process.env[key]) throw new Error(`Missing required environment variable: ${key}`);
+export const assertRequiredEnv = () => {
+  if (process.env.NODE_ENV !== 'production') return;
+
+  const missing = required.filter((key) => !process.env[key]);
+  if (missing.length) {
+    throw new Error(`Missing required environment variables: ${missing.join(', ')}`);
   }
-}
+};
 
 export const env = {
   nodeEnv: process.env.NODE_ENV || 'development',

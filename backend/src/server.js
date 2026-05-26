@@ -2,7 +2,7 @@ import http from 'http';
 import { Server } from 'socket.io';
 import { app } from './app.js';
 import { connectDB } from './config/db.js';
-import { env } from './config/env.js';
+import { assertRequiredEnv, env } from './config/env.js';
 import { registerSockets } from './sockets/index.js';
 
 const server = http.createServer(app);
@@ -13,6 +13,7 @@ const io = new Server(server, {
 registerSockets(io);
 
 const start = async () => {
+  assertRequiredEnv();
   await connectDB();
   server.listen(env.port, () => console.log(`REMS API running on port ${env.port}`));
 };
