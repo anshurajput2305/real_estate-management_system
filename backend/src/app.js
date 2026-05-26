@@ -56,3 +56,5 @@ app.use('/api/notifications', notificationRoutes);
 
 app.use(notFound);
 app.use(errorHandler);
+
+export default app;
