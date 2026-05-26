@@ -2,6 +2,7 @@
   "name": "real-estate-management-system",
   "version": "1.0.0",
   "private": true,
+  "type": "module",
   "description": "MERN Real Estate Management System monorepo",
   "workspaces": [
     "backend",
