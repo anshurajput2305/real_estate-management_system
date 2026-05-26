@@ -1,8 +1,12 @@
-const productionApiUrl = 'https://real-estate-management-system-backend.vercel.app/api';
-const productionSocketUrl = 'https://real-estate-management-system-backend.vercel.app';
+const productionBackendUrl = 'https://real-estate-management-system-backend.vercel.app';
 
-export const API_BASE_URL = import.meta.env.VITE_API_URL || (import.meta.env.PROD ? productionApiUrl : '/api');
-export const SOCKET_URL = import.meta.env.VITE_SOCKET_URL || (import.meta.env.PROD ? productionSocketUrl : 'http://localhost:5000');
+const withApiPath = (url) => {
+  const normalized = url.replace(/\/+$/, '');
+  return normalized.endsWith('/api') ? normalized : `${normalized}/api`;
+};
+
+export const API_BASE_URL = withApiPath(import.meta.env.VITE_API_URL || (import.meta.env.PROD ? productionBackendUrl : '/api'));
+export const SOCKET_URL = (import.meta.env.VITE_SOCKET_URL || (import.meta.env.PROD ? productionBackendUrl : 'http://localhost:5000')).replace(/\/+$/, '');
 
 export const roles = {
   customer: 'customer',
