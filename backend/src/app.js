@@ -41,6 +41,7 @@ app.use((req, res, next) => {
   return csrfProtection(req, res, next);
 });
 
+app.get('/', (_req, res) => res.json({ success: true, message: 'REMS API is running' }));
 app.get('/api/health', (_req, res) => res.json({ success: true, message: 'REMS API is healthy' }));
 app.use(audit);
 app.use('/api/auth', authRoutes);
