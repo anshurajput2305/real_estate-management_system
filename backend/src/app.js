@@ -7,7 +7,7 @@ import rateLimit from 'express-rate-limit';
 import mongoSanitize from 'express-mongo-sanitize';
 import xss from 'xss-clean';
 import csrf from 'csurf';
-import { env } from './config/env.js';
+import { env, isAllowedOrigin } from './config/env.js';
 import { audit } from './middlewares/audit.js';
 import { errorHandler, notFound } from './middlewares/error.js';
 import authRoutes from './routes/auth.routes.js';
@@ -25,7 +25,7 @@ export const app = express();
 
 app.set('trust proxy', 1);
 app.use(helmet());
-app.use(cors({ origin: env.clientUrl, credentials: true }));
+app.use(cors({ origin: (origin, callback) => callback(null, isAllowedOrigin(origin)), credentials: true }));
 app.use(rateLimit({ windowMs: 15 * 60 * 1000, limit: 350, standardHeaders: true, legacyHeaders: false }));
 app.use(express.json({ limit: '1mb' }));
 app.use(express.urlencoded({ extended: true, limit: '1mb' }));

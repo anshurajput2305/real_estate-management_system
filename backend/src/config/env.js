@@ -38,3 +38,10 @@ export const env = {
     from: process.env.MAIL_FROM || 'LuxeEstate REMS <no-reply@luxeestate.local>'
   }
 };
+
+export const isAllowedOrigin = (origin) => {
+  if (!origin) return true;
+  if (origin === env.clientUrl) return true;
+  if (origin.startsWith('http://localhost:') || origin.startsWith('http://127.0.0.1:')) return true;
+  return /(^https:\/\/.*\.vercel\.app$)|(^https:\/\/.*\.vercel\.app\/)/.test(origin);
+};
